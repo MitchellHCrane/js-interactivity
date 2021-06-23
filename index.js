@@ -15,7 +15,7 @@ function addMovie(event) {
     
     document.querySelector("ul").appendChild(movie);
     deleteBtn.textContent = "X";
-    
+
     document.querySelector("input").value = "";
     deleteBtn.addEventListener("click", deleteMovie);
     movie.appendChild(deleteBtn);
@@ -23,16 +23,27 @@ function addMovie(event) {
 
 function deleteMovie(event) {
     event.target.parentNode.remove();
-    message.textContent = "Movie deleted!";
+    event.target.textContent = "";
+    message.textContent = `${event.target.parentNode.textContent} deleted!`;
+    revealMessage();
 }
 
 function crossOffMovie(event){
-    event.target.classList.toggle("checked")
+    event.target.classList.toggle("checked");
+
     if (event.target.classList.contains("checked")){
-        message.textContent = "Movie watched"
+        message.textContent = `${event.target.textContent} watched!`
     } else {
-        message.textContent = "Movie added back!"
+        message.textContent = `${event.target.textContent} added back!`
     }
+    revealMessage();
+}
+
+function revealMessage(){
+    message.classList.remove("hide");
+    setTimeout(function(){
+        message.classList.add("hide");
+    }, 1000);
 }
 
 document.querySelector("form").addEventListener("submit", addMovie);
